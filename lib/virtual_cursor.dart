@@ -2,7 +2,6 @@ library virtual_cursor;
 
 export 'src/models/cursor.dart';
 export 'src/models/pressing_token.dart' show PressingToken;
-export 'src/models/pressing_request.dart' hide PressingRequest;
 
 export 'src/enums/mouse_axis.dart';
 export 'src/enums/mouse_button.dart';

@@ -1,7 +1,8 @@
 name: virtual_cursor
 description: Send instruction to you cursor via Win32API.
-version: 1.0.0
-# homepage: https://www.example.com
+version: 1.0.1
+homepage: https://github.com/LuanRoger/virtual_cursor
+repository: https://github.com/LuanRoger/virtual_cursor
 
 environment:
   sdk: '>=2.17.6 <3.0.0'
