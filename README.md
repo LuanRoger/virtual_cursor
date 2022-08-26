@@ -1,39 +1,48 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# virtual_cursor
+### Control the cursor via Win32 API.
 
 ## Features
+- Simulate cursor moves.
+- Press and hold mouse buttons.
+- Create complex moves with ```MultiForce```
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Dependencies
+- [win32](https://pub.dev/packages/win32)
+- [ffi](https://pub.dev/packages/ffi)
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+## Examples
+This simple example shows how to move the cursor and press a mouse button.
 ```dart
-const like = 'sample';
+import 'package:virtual_cursor/virtual_cursor.dart';
+
+void main() {
+  Cursor cursor = Cursor();
+  cursor.setForce(10, MouseAxis.X, MouseVariableButton.CURSOR);
+  cursor.press(MouseButton.LEFT);
+}
 ```
+This example shows how to create complex cursor moves with ```MultiForce```.
+```dart
+import 'package:virtual_cursor/src/models/cursor_force.dart';
+import 'package:virtual_cursor/virtual_cursor.dart';
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+void main() async {
+  Cursor cursor = Cursor();
+  PressingToken token = cursor.pressAndHold(MouseButton.LEFT);
+  await cursor.setMultiForce([
+    CursorForce(
+        force: -50, axis: MouseAxis.Y, button: MouseVariableButton.CURSOR),
+    CursorForce(
+        force: 50, axis: MouseAxis.X, button: MouseVariableButton.CURSOR),
+    CursorForce(
+        force: 50, axis: MouseAxis.Y, button: MouseVariableButton.CURSOR),
+    CursorForce(
+        force: -50, axis: MouseAxis.X, button: MouseVariableButton.CURSOR),
+    CursorForce(
+        force: -50, axis: MouseAxis.Y, button: MouseVariableButton.CURSOR)
+  ], delay: Duration(seconds: 1));
+  cursor.release(token);
+}
+```
+## Documentation
+> Soon
