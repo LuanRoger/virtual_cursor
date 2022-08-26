@@ -45,6 +45,9 @@ class Cursor {
     free(input);
   }
 
+  ///Set multiple forces to run in sequence.
+  ///```List<CursorForce> cursorForces``` - Forces to apply to cursor.
+  ///```Duration? delay``` - Define a delay between each ```CursorForce```.
   Future setMultiForce(List<CursorForce> cursorForces,
       {Duration? delay}) async {
     MouseInput mouseInput = MouseInput();
@@ -83,6 +86,9 @@ class Cursor {
     free(input);
   }
 
+  ///Press and hold in a mouse button.
+  ///```MouseButton button``` - Mouse button to press.
+  ///Return: Return the action reference, use it to release the button.
   PressingToken pressAndHold(MouseButton button) {
     MouseInput mouseInput = MouseInput();
 
@@ -97,6 +103,8 @@ class Cursor {
           PressingRequest(mouseInput, button, isPressing: true));
   }
 
+  ///Release a holding button using ```PressingToken```.
+  ///```PressingToken pressingToken``` - Reference to a ```pressAndHold``` action to be released.
   void release(PressingToken pressingToken) {
     PressingRequest pressingRequest = pressingToken.getPressingRequest();
     pressingRequest
