@@ -3,6 +3,7 @@ import 'package:virtual_cursor/src/enums/mouse_axis.dart';
 import 'package:virtual_cursor/src/enums/mouse_button.dart';
 import 'package:virtual_cursor/src/enums/mouse_variable_button.dart';
 import 'package:virtual_cursor/src/models/cursor_force.dart';
+import 'package:virtual_cursor/src/models/cursor_position.dart';
 import 'package:virtual_cursor/src/models/pressing_token.dart';
 import 'package:virtual_cursor/src/models/mouse_input.dart';
 import 'package:virtual_cursor/src/models/pressing_request.dart';
@@ -12,7 +13,7 @@ import 'dart:ffi';
 
 ///Simulate a mouse/cursor inputs and movements.
 class Cursor {
-  static const int _INPUT_MOUSE_HARDWARE = INPUT_HARDWARE;
+  final int _INPUT_MOUSE_HARDWARE = INPUT_HARDWARE;
 
   ///Set force to a variable mouse button.
   ///```force``` - Amount of the movement.
@@ -48,7 +49,7 @@ class Cursor {
   ///Set multiple forces to run in sequence.
   ///```List<CursorForce> cursorForces``` - Forces to apply to cursor.
   ///```Duration? delay``` - Define a delay between each ```CursorForce```.
-  Future setMultiForce(List<CursorForce> cursorForces,
+  Future<void> setMultiForce(List<CursorForce> cursorForces,
       {Duration? delay}) async {
     MouseInput mouseInput = MouseInput();
     List<Future> cursorActionList = List.empty(growable: true);
@@ -68,6 +69,10 @@ class Cursor {
 
     await Future.wait(cursorActionList);
     mouseInput.dispose();
+  }
+
+  void setCursorPos(CursorPosition position) {
+    SetCursorPos(position.x, position.y);
   }
 
   ///Simulate a press and release in a mouse button.
